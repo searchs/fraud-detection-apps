@@ -1,7 +1,7 @@
 from lxml import html
 import requests
 import time
-
+#  Scraps itunes store for information.   Attempt to build a scrapping tool 
 # Libraries: Beautiful Soup, scrapy
 
 class AppCrawler():
