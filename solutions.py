@@ -1,5 +1,5 @@
 ### Exercise 1
-``` python
+``` 
 restuarant_list = ["Jamie's Italian", "Cabana", "Greek Island", "Obalende Suya"]
 drinks_list = ['Koko dry', 'Fanta', 'Sprite', 'Water']
 my_eating_box = restuarant_list + drinks_list
