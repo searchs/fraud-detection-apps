@@ -2,14 +2,18 @@
 
 # author Ola Ajibode
 
+# This is using Python3.  Python2 is different in some ways.  Search online to find
+# the differences
+
 # Installing Python on Windows and Mac OSX/Linux
 print("Hello World")
 
 # Variable:  A variable holds a space in memory and can hold a value
 # d is the name of the variable, Johnny is the value STORED in 'd'
-d = "Johnny"
+d = "johnny"
 
 print(d) #prints the value stored in the variable 'd'
+print(d.capitalize())
 
 # Multiple declaration of Variables
 person_1, person_2, person_3 = "Daniels", "Isaacs", "Peters"
@@ -79,3 +83,47 @@ print(daysWeek)
 
 # daysWeek.append("MineDay") #Fails as you cannot change Tuples!
 daysWeek.count("Monday")
+print(daysWeek[:4])
+
+for day in daysWeek:
+    print(day)
+
+
+# Define a function
+
+def doSomethignNice():
+    print("I can do something nice")
+
+doSomethignNice()
+
+
+# A function that takes an argument
+def sayMyName(name):
+    print(name)
+
+
+sayMyName("Fisibobo")
+sayMyName("")#Empty string  #TODO: Add validation to user input
+
+# TODO: Principles of Solution Design (Algorithm template)
+'''
+Define the problem in simple terms
+Write the logical steps (physical steps) you would take to accomplish the task
+Do the least amount of work necessary to accomplish the task - Never complicate solutions
+If an activity is repeated more than once, write a function
+Do not write what you don't need - e.g. what you think 'might' be useful in the future
+Test. Test and again Test every step immediately
+Refactor what you've done
+
+Example:  Build a  Room booking platform
+Problem:  Map room with time and people with no duplication
+Steps:
+Get a list of all rooms
+Get a time frame for room availability
+Get a list of users that can book the room
+Receive a booking request [room, time]
+Check if room is available - check booking status
+Process booking status - return Booked or Available
+Confirm room status to the user that made the request
+
+'''
