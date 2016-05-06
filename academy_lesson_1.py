@@ -91,10 +91,10 @@ for day in daysWeek:
 
 # Define a function
 
-def doSomethignNice():
+def doSomethingNice():
     print("I can do something nice")
 
-doSomethignNice()
+doSomethingNice()
 
 
 # A function that takes an argument
@@ -116,7 +116,8 @@ Test. Test and again Test every step immediately
 Refactor what you've done
 
 Example:  Build a  Room booking platform
-Problem:  Map room with time and people with no duplication
+Problem:  Map room with time and people 
+Constraint:  There should be no duplication
 Steps:
 Get a list of all rooms
 Get a time frame for room availability
