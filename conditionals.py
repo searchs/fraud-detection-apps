@@ -1,6 +1,7 @@
 # author Ola Ajibode
-
-# Making Decisions: Conditionals
+#Python Version used: Python2
+#Lesson on making decisions. 
+#Making Decisions: Conditionals
 
 if 4 < 6:
     print "My name is Jack!"
@@ -8,7 +9,6 @@ if 4 < 6:
 
 if 5 < 3:
     print "How can that be?"
-
 else:
     print "We already know that"
 
@@ -97,4 +97,4 @@ for a in "Program":
     print a.upper()
 
 
-# TRY and ACCEPT
+#TODO: TRY and ACCEPT
