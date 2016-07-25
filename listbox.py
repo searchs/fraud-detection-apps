@@ -28,3 +28,32 @@ pretty_print(l[1:5])
 print(l[0:26:2])
 # reverses the array
 print(l[::-1])
+
+char_count = {'a': 5, 'b':7, 'A': 5, 't':8, 'B': 10}
+
+char_freq = dict();
+for key,value in char_count.items():
+    if key.lower() in char_freq:
+        char_freq[key.lower()] += value
+    else:
+        char_freq[key.lower()] = value
+
+print(char_freq)
+
+# Comprehension 
+#
+squared = []
+
+for n in range(11):
+    squared.append(n**2)
+
+print(squared)
+
+# Template:
+print("Using Comprehension")
+sqd = [n**2 for n in range(11)]
+print(sqd)
+
+# More computation
+sqd_1 = [n**2 for n in range(11) if n % 2 is 0]
+print(sqd_1)
