@@ -97,3 +97,34 @@ print(list(filter(strip_neg, range(-5,6))))
 print("Filter with in-built function")
 print(list(map(grabs, filter(strip_neg,range(-5,6)))))
 
+
+def swop(c):
+    return (c*2)**2
+
+print(list(map(swop, range(5))))
+
+lambda x: (x*2)**2
+
+
+# Generator
+
+def fibby(n):
+    x = y = 1
+    result = []
+    for i in range(n):
+        result.append(x)
+        x,y = y, x+y
+    return result
+
+
+# print(fibby(1000))
+
+def fibby_g(m):
+    a = b = 1
+    for i  in range(m):
+        yield a
+        a,b = b, a + b
+
+# print(fibby_g(1000))
+for f in fibby_g(1000):
+    print(f)
