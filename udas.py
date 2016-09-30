@@ -26,31 +26,22 @@ def daysBetweenDates(year1, month1, day1, year2, month2, day2):
        and year2/month2/day2. Assumes inputs are valid dates
        in Gregorian calendar, and the first date is not after
        the second."""
-    # YOUR CODE HERE!
+
     daysDiff = 0
     if  year1 == year2:
         if month1 == month2:
-            # print "Equal Months"
             daysDiff =  day2 - day1
             return daysDiff
         else:
-            # print "Different Months"
+           
             diff_days = (30 - day1) + day2
-            # print diff_days
-            # print "Month 2 is really greater"
             diff_months = month2 - month1
-            # print diff_months
             daysDiff = diff_days + 30*(diff_months -1)
-            # print  daysDiff
             return daysDiff
     elif year1 < year2:
-        # print "Year Two is greater"
         years_diff = year2 - year1
-        # print years_diff
         months_diff =  (12 - month1) + month2
-        # print months_diff
         diff_days = (30 - day1) + day2
-        # print diff_days
         daysDiff = diff_days + 30*(months_diff -1)
         return daysDiff
 
