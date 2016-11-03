@@ -6,7 +6,9 @@ import time
 
 class AppCrawler():
 
-    """docstring for AppCrawler"""
+    '''
+    docstring for AppCrawler
+    '''
 
     def __init__(self, starting_url, depth):
         self.starting_url = starting_url
