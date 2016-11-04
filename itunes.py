@@ -7,7 +7,7 @@ import time
 class AppCrawler():
 
     '''
-    docstring for AppCrawler
+     AppCrawler extracts information from the popular itunes store
     '''
 
     def __init__(self, starting_url, depth):
