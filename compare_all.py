@@ -1,139 +1,91 @@
+#!/usr/bin/env python3
+from __future__ import print_function
 
-# coding: utf-8
+# Important info:  Apache Spark MUST be available on machine (Jenkins Slave)
 
-# In[1]:
+import os
+import sys
+from stat import *
+from datetime import datetime 
 
-
-# !pip3 install pyspark findspark --upgrade
-
-
-# In[1]:
-
-
-import os, sys
+os.system("pip3 install -r requirements.txt --user")
 
 import findspark
 findspark.init()
+
 import pyspark
-# from pysparkling import Context
-
-
-# In[2]:
-
-
-sc = pyspark.SparkContext(appName="compare_engine")
-
-
-# In[3]:
-
-
-# primary= sys.argv[1]
-# secondary = sys.argv[2]
-
-
-# In[6]:
-
-
-# sc.stop
-primary="_int_legacy_1110.json"
-secondary="_legacy_1110.json"
-raw_primary = sc.textFile(primary)                                                  
-raw_secondary = sc.textFile(secondary)
-
-
-# In[50]:
-
-
-primary="_sort.txt"
-secondary="nonprod_sky_1.txt"
-raw_primary = sc.textFile(primary)                                                  
-raw_secondary = sc.textFile(secondary)
-
-
-# In[51]:
-
-
-primary_count = raw_primary.count()
-
-
-# In[52]:
-
-
-print(primary_count)
-
-
-# In[53]:
-
-
-raw_primary.distinct().count()
-
-
-# In[54]:
-
-
-secondary_count = raw_secondary.count()
-
-
-# In[55]:
-
-
-print(secondary_count)
-
-
-# In[56]:
-
-
-raw_secondary.distinct().count()
-
-
-# In[57]:
-
-
-# Returns the number of records in PRIMARY not in found SECONDARY
-notCompRecords  = raw_primary.subtract(raw_secondary)
-
-
-# In[58]:
-
-
-notCompRecords.count()
-
-
-# In[59]:
-
-
-# notCompRecords.collect()
-rev_diff_records = raw_secondary.subtract(raw_primary)
-
-
-# In[62]:
-
-
-# Returns number of records in SECONDARY file not found in PRIMARY
-rev_diff_records.count()
-
-
-# In[63]:
-
-
-get_ipython().system('rm -Rf collects.csv')
-notCompRecords.repartition(1).saveAsTextFile('collects.csv')
-
-
-# In[64]:
-
-
-get_ipython().system('cat collects.csv/part-00000 > collect_report.csv')
-
-
-# In[65]:
-
-
-get_ipython().system('wc -l collect_report.csv')
-
-
-# In[49]:
-
-
-# !diff collect_report.csv sky_int_legacy_1110.json
-
+from pyspark import SparkContext, SparkConf, SparkFiles
+
+run_date = datetime.today().strftime('%Y%m%d')
+
+providers = list(['SKY', 'UNKNOWN', 'NOWTV', 'Virgin', 'kids-SKY', 'UPC'])
+
+primary = sys.argv[1]
+secondary = sys.argv[2]
+
+def spark_details(SparkContext):
+    localsc = SparkContext
+    print(localsc.version)
+    print(localsc.pythonVer)
+    print(localsc.master)
+    print(str(localsc.sparkHome))
+    print(str(localsc.sparkUser()))
+    print(localsc.appName)
+    print(localsc.applicationId)
+    print(localsc.defaultParallelism)
+    print(localsc.defaultMinPartitions)
+    print("End of Spark ENV Details.")
+    
+'''
+Compares 2 extract files contents
+'''
+def main():
+    conf = (SparkConf()
+                .setMaster("local[*]")
+                .setAppName("compare_engine"))
+
+    sc = SparkContext(conf = conf)
+    # sc.setLogLevel('INFO')
+
+    raw_primary = sc.textFile(primary, minPartitions=4, use_unicode=False).distinct()   
+    raw_primary.partitionBy(8).cache()
+    raw_secondary = sc.textFile(secondary, minPartitions=4, use_unicode=False).distinct()
+    raw_secondary.partitionBy(8).cache()
+
+    # count = sc.accumulator(0)
+
+    print(raw_primary.getNumPartitions())
+    primary_count = raw_primary.count()
+    print("DEBUG: Primary Count:__", primary_count)
+
+    secondary_count = raw_secondary.count()
+    print("DEBUG: Secondary Count:__",secondary_count)
+
+    # Return each Primary file line/record not contained in Secondary
+    not_in_primary  = raw_primary.subtract(raw_secondary)
+    print("Subtraction Partion Count:__", not_in_primary.count())
+    
+    os.system('rm -Rf collects_*.csv')
+    # notCompRecords.coalesce(1).saveAsTextFile('collects_{}.csv'.format(run_date))
+    # not_in_primary.saveAsTextFile('collects_{}.csv'.format(run_date))
+    not_in_primary.coalesce(1, True).saveAsTextFile('collects_{}.csv'.format(run_date))
+
+    os.system('cat collects_{}.csv/part-0000* > collects_{}_report.csv'.format(run_date, run_date))
+    os.system('wc -l collects_{}_report.csv'.format(run_date))
+
+    # Flip Primary Vs Secondary
+     # Return each Secondary file line/record not contained in Primary
+    not_in_secondary  = raw_secondary.subtract(raw_primary)
+    # print(not_in_secondary.count())
+
+    spark_details(sc)
+
+    sc.stop()
+
+    # File Data
+    primary_stats = os.stat(primary)
+    secondary_stats = os.stat(secondary)
+
+
+if __name__ == "__main__":
+    main()
