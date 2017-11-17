@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from __future__ import print_function
 
 # Important info:  Apache Spark MUST be available on machine (Jenkins Slave)
 
@@ -17,8 +16,6 @@ import pyspark
 from pyspark import SparkContext, SparkConf, SparkFiles
 
 run_date = datetime.today().strftime('%Y%m%d')
-
-providers = list(['SKY', 'UNKNOWN', 'NOWTV', 'Virgin', 'kids-SKY', 'UPC'])
 
 primary = sys.argv[1]
 secondary = sys.argv[2]
@@ -45,14 +42,12 @@ def main():
                 .setAppName("compare_engine"))
 
     sc = SparkContext(conf = conf)
-    # sc.setLogLevel('INFO')
+    sc.setLogLevel('INFO')
 
     raw_primary = sc.textFile(primary, minPartitions=4, use_unicode=False).distinct()   
     raw_primary.partitionBy(8).cache()
     raw_secondary = sc.textFile(secondary, minPartitions=4, use_unicode=False).distinct()
     raw_secondary.partitionBy(8).cache()
-
-    # count = sc.accumulator(0)
 
     print(raw_primary.getNumPartitions())
     primary_count = raw_primary.count()
@@ -66,26 +61,19 @@ def main():
     print("Subtraction Partion Count:__", not_in_primary.count())
     
     os.system('rm -Rf collects_*.csv')
-    # notCompRecords.coalesce(1).saveAsTextFile('collects_{}.csv'.format(run_date))
-    # not_in_primary.saveAsTextFile('collects_{}.csv'.format(run_date))
-    not_in_primary.coalesce(1, True).saveAsTextFile('collects_{}.csv'.format(run_date))
+    not_in_primary.coalesce(1, True).saveAsTextFile('collects_{}_1.csv'.format(run_date))
 
-    os.system('cat collects_{}.csv/part-0000* > collects_{}_report.csv'.format(run_date, run_date))
+    os.system('cat collects_{}_1.csv/part-0000* > collects_{}_report.csv'.format(run_date, run_date))
     os.system('wc -l collects_{}_report.csv'.format(run_date))
 
     # Flip Primary Vs Secondary
      # Return each Secondary file line/record not contained in Primary
     not_in_secondary  = raw_secondary.subtract(raw_primary)
-    # print(not_in_secondary.count())
+    not_in_primary.coalesce(1,True).saveAsTextFile('collects_{}_2.csv'.format(run_date))
 
-    spark_details(sc)
-
+    # DEBUG INFO ONLY # spark_details(sc)
     sc.stop()
-
-    # File Data
-    primary_stats = os.stat(primary)
-    secondary_stats = os.stat(secondary)
-
+    # DEBUG INFO: File Data - primary_stats = os.stat(primary) - secondary_stats = os.stat(secondary)
 
 if __name__ == "__main__":
     main()
