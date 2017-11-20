@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
-
-# Important info:  Apache Spark MUST be available on machine (Jenkins Slave)
+from __future__ import print_function
 
 import os
 import sys
 from stat import *
-from datetime import datetime 
+from datetime import datetime, timedelta
 
 os.system("pip3 install -r requirements.txt --user")
 
+# Not needed if PySparkmis properly setup
 import findspark
 findspark.init()
 
 import pyspark
 from pyspark import SparkContext, SparkConf, SparkFiles
 
-run_date = datetime.today().strftime('%Y%m%d')
+run_date = (datetime.now() - timedelta(days=1)).strftime('%Y%m%d')
 
 primary = sys.argv[1]
 secondary = sys.argv[2]
@@ -74,6 +74,7 @@ def main():
     # DEBUG INFO ONLY # spark_details(sc)
     sc.stop()
     # DEBUG INFO: File Data - primary_stats = os.stat(primary) - secondary_stats = os.stat(secondary)
+    exit(0)
 
 if __name__ == "__main__":
     main()
