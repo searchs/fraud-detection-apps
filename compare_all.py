@@ -18,8 +18,6 @@ from pyspark import SparkContext, SparkConf, SparkFiles
 
 run_date = (datetime.now() - timedelta(days=1)).strftime('%Y%m%d')
 
-providers = list(['SKY', 'UNKNOWN', 'NOWTV', 'Virgin', 'kids-SKY', 'UPC'])
-
 primary = sys.argv[1]
 secondary = sys.argv[2]
 
