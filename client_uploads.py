@@ -1,60 +1,64 @@
 import os
+
 from flask import Flask, render_template, flash, request, redirect, url_for
-from werkzeug.utils import secure_filename
+# from werkzeug.utils import secure_filename
+from flask_s3 import FlaskS3
 
 __author__ = 'Ola Ajibode'
 
+ALLOWED_EXTENSIONS = {'csv', 'tsv', 'sql'}
 UPLOAD_FOLDER = 'uploads'
-global upload_queue
-upload_queue = []
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 target = os.path.join(APP_ROOT, UPLOAD_FOLDER)
 
-ALLOWED_EXTENSIONS = {'csv', 'tsv', 'sql'}
+upload_queue = os.listdir(target)
 
 app = Flask(__name__)
+app.config['FLASKS3_BUCKET_NAME'] = 'reports-adhoc-raw'
+s3 = FlaskS3(app)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+@app.route('/index')
 def index():
-    print(os.listdir(target))
-    clean_uploads(target)
-
-    return render_template('index.html')
+    print(dir(s3.init_app))
+    if len(upload_queue) > 0:
+        clean_uploads(target)
+    return render_template('index.html', title='Ingest File Upload')
 
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    # target = os.path.join(APP_ROOT, UPLOAD_FOLDER)
-    print(target)
-
     if not os.path.isdir(target):
         os.mkdir(target)
-    clean_uploads(target)
+
+    if len(request.files.getlist('file')) == 0:
+        # TODO: Remove print, move to logger
+        print("No file selected for upload.  Reloading page.....")
+        return render_template('index.html', title='No File Selected')
 
     for upp_file in request.files.getlist('file'):
-        print(upp_file)
         filename = upp_file.filename
         destination = "/".join([target, filename])
+        # Remove print, move to logger
         print(destination)
         upp_file.save(destination)
 
     upqueue = os.listdir(target)
-    print(upqueue)
-
-    return render_template('complete.html')
+    return render_template('complete.html', upload_list=upqueue, title='Upload Status')
 
 
 def clean_uploads(target):
     upload_queue = os.listdir(target)
-    print(upload_queue)
+    # Remove print, move to logger
     if len(upload_queue) > 0:
         for f in upload_queue:
-            os.remove(os.path.join(target,f))
+            os.remove(os.path.join(target, f))
     upload_queue = os.listdir(target)
-    print(upload_queue)
 
-
+    if len(upload_queue) > 0:
+        print("Remove file failed. Upload dir still contains files.")
 
 
 def push_files_s3():
