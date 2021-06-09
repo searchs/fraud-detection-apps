@@ -1,7 +1,8 @@
 import re
 
+
 class WordApp:
-    """WordApp application returns the longest and shortest word(s) as well as their 
+    """WordApp application returns the longest and shortest word(s) as well as their
     respective lengths.
     """
 
@@ -12,9 +13,9 @@ class WordApp:
 
     def accept_sentence(self, check_line=None):
         """Accepts a string of texts to be processed
-        
+
         :params check_line:  String of words to be analyzed
-        Return: Returns the string as lowercase sentence only in a set. 
+        Return: Returns the string as lowercase sentence only in a set.
         """
 
         if check_line == None:
@@ -27,7 +28,7 @@ class WordApp:
 
     def get_longest_word(self):
         """Checks for the longest words in the sentence.
-        
+
         Return: a tuple of list of the longest words and the length of each word
         """
 
@@ -74,23 +75,26 @@ class Result(BaseModel):
     words: list
     word_length: int
 
+
 app = FastAPI()
 
 wordapp = WordApp()
 wordapp.sentence = None
 
+
 @app.get("/")
 def root():
     """Root of api.  Checkout http://localhost:8000/docs to test it out. """
-    return {"app": "WordApp",
-    "version": "0.0.1",
-    "description": "Get longest and shortest words from sentence with lengths.",
-    "test_page" : "http://localhost:8000/docs"}
-
+    return {
+        "app": "WordApp",
+        "version": "0.0.1",
+        "description": "Get longest and shortest words from sentence with lengths.",
+        "test_page": "http://localhost:8000/docs",
+    }
 
 
 @app.get("/{check_type}")
-def get_words_by_length(check_type: str ,sentence: str = None ):
+def get_words_by_length(check_type: str, sentence: str = None):
     wordapp.accept_sentence(sentence)
     if check_type == "longest":
         results = wordapp.get_longest_word()
@@ -101,11 +105,9 @@ def get_words_by_length(check_type: str ,sentence: str = None ):
         results = "No Type specified"
 
     if "No word" in results:
-        return { "check_type" : check_type,
-            "words": "No word"}
+        return {"check_type": check_type, "words": "No word"}
 
     if "No Type specified" in results:
-        return { "check_type" : "Invalid check_type" ,
-            "words": "No word"}
+        return {"check_type": "Invalid check_type", "words": "No word"}
 
-    return {"check_type":  check_type ,"words" : results[0], "word_length": results[1]}
+    return {"check_type": check_type, "words": results[0], "word_length": results[1]}

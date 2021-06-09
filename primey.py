@@ -6,8 +6,8 @@ def is_prime(x):
     elif x > 2:
         status_true = 0
         status_false = 0
-        for n in range(2,x):
-            if(x % n == 0):
+        for n in range(2, x):
+            if x % n == 0:
                 status_false += 1
             else:
                 status_true += 1
@@ -18,12 +18,11 @@ def is_prime(x):
             return False
 
 
-
 # Testing
 falsy = []
 truthy = []
 
-for p in range(0,100001):
+for p in range(0, 100001):
     if is_prime(p):
         print(p)
         truthy.append(p)

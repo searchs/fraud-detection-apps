@@ -1,14 +1,16 @@
 from lxml import html
 import requests
 import time
-#  Scraps itunes store for information.   Attempt to build a scrapping tool 
+
+#  Scraps itunes store for information.   Attempt to build a scrapping tool
 # Libraries: Beautiful Soup, scrapy
 
-class AppCrawler():
 
-    '''
-     AppCrawler extracts information from the popular itunes store
-    '''
+class AppCrawler:
+
+    """
+    AppCrawler extracts information from the popular itunes store
+    """
 
     def __init__(self, starting_url, depth):
         self.starting_url = starting_url
@@ -40,15 +42,15 @@ class AppCrawler():
         developer = tree.xpath('//div[@class="left"]/h2/text()')[0]
         price = tree.xpath('//div[@itemprop="price"]/text()')[0]
         links = tree.xpath(
-            '//div[@class="center-stack"]//*/a[@class="artwork-link"]/@href')
+            '//div[@class="center-stack"]//*/a[@class="artwork-link"]/@href'
+        )
 
         app = App(name, developer, price, links)
 
         return app
 
 
-class App():
-
+class App:
     def __init__(self, name, developer, price, links):
         self.name = name
         self.developer = developer
@@ -56,12 +58,20 @@ class App():
         self.links = links
 
     def __str__(self):
-        return("Name: " + self.name.encode('UTF-8') +
-               "\r\nDeveloper: " + self.developer.encode('UTF-8') +
-               "\r\nPrice: " + self.price.encode('UTF-8') + "\r\n")
+        return (
+            "Name: "
+            + self.name.encode("UTF-8")
+            + "\r\nDeveloper: "
+            + self.developer.encode("UTF-8")
+            + "\r\nPrice: "
+            + self.price.encode("UTF-8")
+            + "\r\n"
+        )
+
 
 crawler = AppCrawler(
-    "https://itunes.apple.com/us/app/novation-launchpad/id584362474?mt=8", 1)
+    "https://itunes.apple.com/us/app/novation-launchpad/id584362474?mt=8", 1
+)
 crawler.crawl()
 
 for app in crawler.apps:

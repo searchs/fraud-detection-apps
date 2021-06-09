@@ -10,19 +10,20 @@ running = True
 
 
 def say(text):
-    subprocess.call('say ' + text, shell=True)
+    subprocess.call("say " + text, shell=True)
 
 
 def play_audio(filename):
     chunk = 1024
-    wf = wave.open(filename, 'rb')
+    wf = wave.open(filename, "rb")
     pa = pyaudio.PyAudio()
 
     stream = pa.open(
         format=pa.get_format_from_width(wf.getsampwidth()),
         channels=wf.getnchannels(),
         rate=wf.getframerate(),
-        output=True)
+        output=True,
+    )
 
     data_stream = wf.readframes(chunk)
     while data_stream:

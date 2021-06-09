@@ -1,9 +1,10 @@
 import json
 
 from flask import Flask, jsonify, request
+
 app = Flask(__name__)
 
-customers = json.load(open('customers.json', 'r'))
+customers = json.load(open("customers.json", "r"))
 
 
 @app.route("/")

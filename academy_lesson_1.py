@@ -12,7 +12,7 @@ print("Hello World")
 # d is the name of the variable, Johnny is the value STORED in 'd'
 d = "johnny"
 
-print(d) #prints the value stored in the variable 'd'
+print(d)  # prints the value stored in the variable 'd'
 print(d.capitalize())
 
 # Multiple declaration of Variables
@@ -33,7 +33,7 @@ print(n[2:])
 
 # Placeholders
 print("%s GuruMentor" % ("Hello"))
-print("Hello, My name is %s and I am %d years old" %("Tofree", 30))
+print("Hello, My name is %s and I am %d years old" % ("Tofree", 30))
 
 # Operators
 # +, -, /, *, %
@@ -41,8 +41,8 @@ print("Hello, My name is %s and I am %d years old" %("Tofree", 30))
 print(3 + 4)
 print(5 - 7)
 print(5 * 5)
-print(8/3)
-print(8/3.0)
+print(8 / 3)
+print(8 / 3.0)
 
 print(9 % 2)
 
@@ -50,13 +50,13 @@ print(9 % 2)
 # List data types
 # List, Tuples, Dictionary
 shopping_list = ["eggs", "chocolate", "sugar", "milk", "cheeries", "apples"]
-print(len(shopping_list)) #length of list
+print(len(shopping_list))  # length of list
 
 print(shopping_list[3])
 shopping_list.append("Chocolate")
 print(shopping_list)
 
-print(shopping_list.count('Chocolate'))
+print(shopping_list.count("Chocolate"))
 
 
 # Dictionary
@@ -77,8 +77,16 @@ for k in global_map.keys():
 
 print(global_map.values())
 
-#Tuples - Immutable!
-daysWeek = ("Monday", "Tuesday","Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+# Tuples - Immutable!
+daysWeek = (
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+)
 print(daysWeek)
 
 # daysWeek.append("MineDay") #Fails as you cannot change Tuples!
@@ -91,8 +99,10 @@ for day in daysWeek:
 
 # Define a function
 
+
 def doSomethingNice():
     print("I can do something nice")
+
 
 doSomethingNice()
 
@@ -103,10 +113,10 @@ def sayMyName(name):
 
 
 sayMyName("Fisibobo")
-sayMyName("")#Empty string  #TODO: Add validation to user input
+sayMyName("")  # Empty string  #TODO: Add validation to user input
 
 # TODO: Principles of Solution Design (Algorithm template)
-'''
+"""
 Define the problem in simple terms
 Write the logical steps (physical steps) you would take to accomplish the task
 Do the least amount of work necessary to accomplish the task - Never complicate solutions
@@ -127,4 +137,4 @@ Check if room is available - check booking status
 Process booking status - return Booked or Available
 Confirm room status to the user that made the request
 
-'''
+"""

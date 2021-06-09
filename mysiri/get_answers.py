@@ -22,7 +22,8 @@ class Fetcher(object):
         self.driver.get(self.url)
         try:
             ip = self.driver.wait.until(
-                EC.presence_of_element_located((By.CLASS_NAME, "gsfi")))
+                EC.presence_of_element_located((By.CLASS_NAME, "gsfi"))
+            )
             print(ip, " found.   Continue processing...")
         except:
             print("Failed to get page.")

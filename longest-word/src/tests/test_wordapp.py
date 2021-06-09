@@ -68,6 +68,7 @@ def test_can_return_valid_error_if_sentence_is_none(wordapp):
     valid_error_msg = wordapp.get_longest_word()
     assert valid_error_msg == "No word"
 
+
 def test_can_return_valid_error_if_sentence_set_to_none(wordapp):
     line = None
     wordapp.accept_sentence(line)
