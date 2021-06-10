@@ -8,6 +8,14 @@ import time
 import csv
 import pandas as pd
 import numpy
+import logging
+
+
+logger = logging.getLogger(__name__)
+'''Usage: 
+compary.py file_1 file_2
+'''
+logger.info(f"Running a comparison between {sys.argv[1]} amd {sys.argv[2]}")
 
 delimiter = linesep.encode("ascii")
 
@@ -15,15 +23,12 @@ file_details = {}
 
 # Get file info: name, size, row count,
 file_name = sys.argv[1]
-# print(file_name)
 file_details["file_name"] = file_name
 
 file_size = os.path.getsize(file_name)
-# print(file_size)
 file_details["file_size_bytes"] = file_size
 
 file_row_count = len(open(file_name).readlines())
-# print(file_row_count)
 file_details["total_rows"] = file_row_count
 
 suffixes = ["B", "KB", "MB", "GB", "TB", "PB"]
@@ -49,6 +54,7 @@ def manifest():
         )
         csv_writer.writeheader()
         csv_writer.writerow(file_details)
+        logger.info("Check teh manifest.csv for details.")
 
 
 manifest()

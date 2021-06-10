@@ -1,7 +1,7 @@
 # Define a days_between_dates procedure that would produce the
 # correct output if there was a correct nextDay procedure.
 #
-# Note that this will NOT produce correct ouptuts yet, since
+# Note that this will NOT produce correct outputs yet, since
 # our nextDay procedure assumes all months have 30 days
 # (hence a year is 360 days, instead of 365).
 #
