@@ -1,4 +1,7 @@
 import re
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class WordApp:
@@ -78,8 +81,8 @@ class Result(BaseModel):
 
 app = FastAPI()
 
-wordapp = WordApp()
-wordapp.sentence = None
+word_app = WordApp()
+word_app.sentence = None
 
 
 @app.get("/")
@@ -95,11 +98,11 @@ def root():
 
 @app.get("/{check_type}")
 def get_words_by_length(check_type: str, sentence: str = None):
-    wordapp.accept_sentence(sentence)
+    word_app.accept_sentence(sentence)
     if check_type == "longest":
-        results = wordapp.get_longest_word()
+        results = word_app.get_longest_word()
     if check_type == "shortest":
-        results = wordapp.get_shortest_word()
+        results = word_app.get_shortest_word()
 
     if check_type is None or check_type not in ["longest", "shortest"]:
         results = "No Type specified"

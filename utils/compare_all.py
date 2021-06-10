@@ -47,7 +47,7 @@ def spark_details(SparkContext):
 
 def sort_each_message(raw_json_str):
     obj = dict(ast.literal_eval("{}".format(raw_json_str)))
-    # listed = raw_json_str.iteritems
+    listed = raw_json_str.iteritems
     # zip(d.keys(), d.values())
     print(obj)
     print(listed.items())

@@ -12,9 +12,9 @@ import logging
 
 
 logger = logging.getLogger(__name__)
-'''Usage: 
+"""Usage: 
 compary.py file_1 file_2
-'''
+"""
 logger.info(f"Running a comparison between {sys.argv[1]} amd {sys.argv[2]}")
 
 delimiter = linesep.encode("ascii")
