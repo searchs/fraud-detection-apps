@@ -1,6 +1,6 @@
 Click==7.0
 dataclasses-json==0.3.8
-fastapi==0.48.0
+fastapi==0.65.2
 itsdangerous==1.1.0
 Jinja2==2.11.3
 MarkupSafe==1.1.1
