@@ -44,11 +44,11 @@ def search_on_rating(rating):
 
 
 def add_restaurant():
-    name = raw_input("Enter Restaurant Name: ")
-    cuisine = raw_input("Enter Restaurant type: ")
-    cost = raw_input("Enter Restaurant cost (out of 5): ")
-    fave = raw_input("Enter rating (out of 5): ")
-    dist = raw_input("Enter distance (minutes' walk): ")
+    name = input("Enter Restaurant Name: ")
+    cuisine = input("Enter Restaurant type: ")
+    cost = input("Enter Restaurant cost (out of 5): ")
+    fave = input("Enter rating (out of 5): ")
+    dist = input("Enter distance (minutes' walk): ")
     restaurants[name] = {"type": cuisine, "cost": cost, "fave": fave, "dist": dist}
 
 
@@ -90,3 +90,8 @@ while not finished:
         finished = True
     else:
         print("That's not a valid choice - try again!")
+
+
+# def make_choice(user_entry):
+#     options = {}
+#     options["1"] = search_on_distance(input("Please enter max distance: "))

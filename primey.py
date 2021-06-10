@@ -1,5 +1,5 @@
 def is_prime(x):
-    if x < 0 or x < 2:
+    if x < 2:
         return False
     elif x == 2:
         return True
@@ -22,9 +22,8 @@ def is_prime(x):
 falsy = []
 truthy = []
 
-for p in range(0, 100001):
+for p in range(0, 1001):
     if is_prime(p):
-        print(p)
         truthy.append(p)
     else:
         falsy.append(p)

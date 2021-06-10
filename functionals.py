@@ -5,6 +5,8 @@ import time
 import multiprocessing
 import os
 
+"""Functional programming bits in Python"""
+
 Scientists = collections.namedtuple("Scientist", ["name", "field", "born", "nobel"])
 
 pprint(Scientists)
