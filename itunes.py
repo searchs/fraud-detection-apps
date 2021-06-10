@@ -1,9 +1,12 @@
 from lxml import html
 import requests
 import time
+import logging
 
 #  Scraps itunes store for information.   Attempt to build a scrapping tool
 # Libraries: Beautiful Soup, scrapy
+
+logger = logging.getLogger(__name__)
 
 
 class AppCrawler:

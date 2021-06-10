@@ -10,6 +10,12 @@ import ast
 
 import findspark
 
+
+"""To run comparison
+python compare_messages.py data_file_1 data_file_2
+
+"""
+
 os.system("pip3 install -r requirements.txt --user")
 findspark.init()
 
