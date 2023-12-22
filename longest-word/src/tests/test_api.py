@@ -1,9 +1,6 @@
-import pytest
-import requests
 from starlette.testclient import TestClient
-import logging as logger
 
-from app.wordapp import WordApp, app
+from app.wordapp import app
 
 client = TestClient(app)
 

@@ -42,7 +42,6 @@ def test_filter_by_age():
 
 
 def test_results_contain_fields_in_result():
-
     random_user = random.randint(0, 250)
     response = app.test_client().get("/")
 

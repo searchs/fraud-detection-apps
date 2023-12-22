@@ -1,4 +1,6 @@
-"""Print details e.g. customer record, to the console in formatted view""" 
+"""Print details e.g. customer record, to the console in formatted view"""
+
+
 def console_card_printer(passenger, seat, flight_number, aircraft):
     output = (
         f"| Name: {passenger} |"

@@ -9,12 +9,11 @@ from collections import OrderedDict
 import ast
 
 import findspark
+from pyspark import SparkContext, SparkConf, SparkFiles
 
 os.system("pip3 install -r requirements.txt --user")
 findspark.init()
 
-import pyspark
-from pyspark import SparkContext, SparkConf, SparkFiles
 
 run_date = (datetime.now() - timedelta(days=1)).strftime("%Y%m%d")
 
@@ -77,7 +76,9 @@ def main():
     os.system("rm -Rf collects_*")
     os.system("rm -Rf holder.txt")
 
-    rdd_secondary = sc.textFile(secondary, minPartitions=4, use_unicode=True).distinct()
+    rdd_secondary = sc.textFile(
+        secondary, minPartitions=4, use_unicode=True
+    ).distinct()
     rdd_secondary.partitionBy(10).cache()
 
     primary_count = rdd_primary.count()
@@ -101,7 +102,9 @@ def main():
     not_in_primary.coalesce(1, True).saveAsTextFile(primary_dir)
 
     # os.system('cat collects_{}_primary/part-0000* >> collects_{}_primary_report.csv'.format(run_date, run_date))
-    os.system("cat {}/part-0000* >> {}".format(primary_dir, primary_report_name))
+    os.system(
+        "cat {}/part-0000* >> {}".format(primary_dir, primary_report_name)
+    )
     os.system("wc -l collects_{}_primary_report.csv".format(run_date))
 
     # Flip Primary Vs Secondary

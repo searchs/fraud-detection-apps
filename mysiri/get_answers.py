@@ -1,13 +1,9 @@
-import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
 
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
-import sys
 
 
 class Fetcher(object):
@@ -25,8 +21,8 @@ class Fetcher(object):
                 EC.presence_of_element_located((By.CLASS_NAME, "gsfi"))
             )
             print(ip, " found.   Continue processing...")
-        except:
-            print("Failed to get page.")
+        except Exception as e:
+            print(f"Failed to get page. {e}")
 
         soup = BeautifulSoup(self.driver.page_source, "html.parser")
         answer = soup.find_all(class_="_sPg")

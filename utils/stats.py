@@ -1,7 +1,7 @@
 def for_each(items, function):
     """Give Python  list super powers with foreach.  FP"""
     for k, v in enumerate(items):
-        function(k,v,items)
+        function(k, v, items)
 
 
 grades = [100, 100, 90, 40, 80, 100, 85, 70, 90, 65, 90, 85, 50.5]
@@ -39,7 +39,7 @@ print(grades_variance(grades))
 
 
 def grades_std_deviation(variance):
-    return variance ** 0.5
+    return variance**0.5
 
 
 variance = grades_variance(grades)

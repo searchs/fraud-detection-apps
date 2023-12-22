@@ -1,3 +1,5 @@
+import csv
+
 # APACHE LOG PROCESSOR
 log = open("example_log.txt")
 
@@ -28,9 +30,6 @@ def parse_log(log):
 first_line = next(parse_log(log))
 
 
-import csv
-
-
 def count_unique_request(csv_file):
     reader = csv.reader(csv_file)
     header = next(reader)
@@ -38,7 +37,6 @@ def count_unique_request(csv_file):
 
     uniques = {}
     for line in reader:
-
         if not uniques.get(line[idx]):
             uniques[line[idx]] = 0
         uniques[line[idx]] += 1
@@ -78,7 +76,6 @@ def count_unique_request(csv_file):
 
     uniques = {}
     for line in reader:
-
         if not uniques.get(line[idx]):
             uniques[line[idx]] = 0
         uniques[line[idx]] += 1

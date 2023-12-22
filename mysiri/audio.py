@@ -1,4 +1,3 @@
-import pyglet
 import pyaudio
 import wave
 import speech_recognition as sr
@@ -27,7 +26,6 @@ def play_audio(filename):
 
     data_stream = wf.readframes(chunk)
     while data_stream:
-
         stream.write(data_stream)
         data_stream = wf.readframes(chunk)
 
@@ -59,7 +57,7 @@ def initSpeech():
 
     try:
         command = r.recognize_google(audio)
-    except:
+    except Exception:
         print("Could not understand you, bro")
 
     print(command)
@@ -74,5 +72,5 @@ def initSpeech():
     say("Here's your message: " + command)
 
 
-while running == True:
+while running:
     initSpeech()

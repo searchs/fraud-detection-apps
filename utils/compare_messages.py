@@ -9,7 +9,7 @@ from collections import OrderedDict
 import ast
 
 import findspark
-
+from pyspark import SparkContext, SparkConf, SparkFiles
 
 """To run comparison
 python compare_messages.py data_file_1 data_file_2
@@ -19,8 +19,6 @@ python compare_messages.py data_file_1 data_file_2
 os.system("pip3 install -r requirements.txt --user")
 findspark.init()
 
-import pyspark
-from pyspark import SparkContext, SparkConf, SparkFiles
 
 run_date = (datetime.now() - timedelta(days=1)).strftime("%Y%m%d")
 
@@ -31,7 +29,9 @@ primary_report = {}
 secondary_report = {}
 process_report = {}
 
-providers = list(["BBC", "UNKNOWN", "VIRGIN", "uStream", "Youtube", "FakeNews"])
+providers = list(
+    ["BBC", "UNKNOWN", "VIRGIN", "uStream", "Youtube", "FakeNews"]
+)
 
 
 def spark_details(SparkContext):
@@ -85,7 +85,9 @@ def main():
     os.system("rm -Rf collects_*")
     os.system("rm -Rf holder.txt")
 
-    rdd_secondary = sc.textFile(secondary, minPartitions=4, use_unicode=True).distinct()
+    rdd_secondary = sc.textFile(
+        secondary, minPartitions=4, use_unicode=True
+    ).distinct()
     rdd_secondary.partitionBy(10).cache()
 
     primary_count = rdd_primary.count()
@@ -110,7 +112,9 @@ def main():
 
     # os.system('cat collects_{}_primary/part-0000* >>
     # collects_{}_primary_report.csv'.format(run_date, run_date))
-    os.system("cat {}/part-0000* >> {}".format(primary_dir, primary_report_name))
+    os.system(
+        "cat {}/part-0000* >> {}".format(primary_dir, primary_report_name)
+    )
     os.system("wc -l collects_{}_primary_report.csv".format(run_date))
 
     # Flip Primary Vs Secondary

@@ -1,13 +1,18 @@
 import collections
-import concurrent.futures
 from pprint import pprint
 import time
 import multiprocessing
 import os
+from functools import reduce
+
+import itertools
+
 
 """Functional programming bits in Python"""
 
-Scientists = collections.namedtuple("Scientist", ["name", "field", "born", "nobel"])
+Scientists = collections.namedtuple(
+    "Scientist", ["name", "field", "born", "nobel"]
+)
 
 pprint(Scientists)
 scientists = (
@@ -19,6 +24,7 @@ scientists = (
 )
 
 # pprint(scientists)
+
 
 # del scientists[0]
 def nobel_filter(x):
@@ -33,11 +39,12 @@ def nobel_filter(x):
 
 # MAP functions
 
-name_and_ages = tuple(map(lambda x: {"name": x.name, "age": 2020 - x.born}, scientists))
+name_and_ages = tuple(
+    map(lambda x: {"name": x.name, "age": 2020 - x.born}, scientists)
+)
 
 # pprint(name_and_ages)
 
-from functools import reduce
 
 total_age = reduce(lambda acc, val: acc + val["age"], name_and_ages, 0)
 # pprint(total_age)
@@ -52,27 +59,31 @@ def reducer(acc, val):
 
 
 scientists_by_field = reduce(
-    reducer, scientists, {"Maths": [], "Physics": [], "Chemistry": [], "Astronomy": []}
+    reducer,
+    scientists,
+    {"Maths": [], "Physics": [], "Chemistry": [], "Astronomy": []},
 )
 
 # pprint(scientists_by_field)
-import collections
 
 # less error prone approach
-scientists_by_field_dd = reduce(reducer, scientists, collections.defaultdict(list))
+scientists_by_field_dd = reduce(
+    reducer, scientists, collections.defaultdict(list)
+)
 
 # pprint(scientists_by_field_dd)
 
 # Using itertools
 
-import itertools
 
 scientists_by_field_group = {
-    item[0]: list(item[1]) for item in itertools.groupby(scientists, lambda x: x.field)
+    item[0]: list(item[1])
+    for item in itertools.groupby(scientists, lambda x: x.field)
 }
 
 # pprint(scientists_by_field_group)
 pool = multiprocessing.Pool(processes=2, maxtasksperchild=1)
+
 
 # TRANSFORMATION
 def tranform_age(x):
