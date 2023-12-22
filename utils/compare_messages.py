@@ -19,7 +19,6 @@ python compare_messages.py data_file_1 data_file_2
 os.system("pip3 install -r requirements.txt --user")
 findspark.init()
 
-import pyspark
 from pyspark import SparkContext, SparkConf, SparkFiles
 
 run_date = (datetime.now() - timedelta(days=1)).strftime("%Y%m%d")

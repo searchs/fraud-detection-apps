@@ -2,12 +2,9 @@
 
 # Get necessary file information using os.stat()
 
-import os, sys, re
+import os, sys
 from os import linesep
-import time
 import csv
-import pandas as pd
-import numpy
 import logging
 
 

@@ -1,12 +1,9 @@
 import os
 import boto3
 from botocore import session
-from botocore.client import Config
 
-import pandas as pd
 from loguru import logger
 from dotenv import load_dotenv
-from pprint import pprint
 
 load_dotenv()
 S3_BUCKET = os.getenv("s3_data_bucket")

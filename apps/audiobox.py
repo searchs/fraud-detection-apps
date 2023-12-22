@@ -1,4 +1,3 @@
-import pyglet
 import pyaudio
 import wave
 import speech_recognition as sr

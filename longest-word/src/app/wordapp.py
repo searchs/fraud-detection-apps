@@ -1,7 +1,13 @@
 import re
-import logging
+from logging import Logger
+from loguru import logger
+from fastapi import FastAPI
+from pydantic import BaseModel
 
-logger = logging.getLogger(__name__)
+from dataclasses import dataclass
+from dataclasses_json import dataclass_json
+
+# logger = logging.getLogger(__name__)
 
 
 class WordApp:
@@ -21,7 +27,7 @@ class WordApp:
         Return: Returns the string as lowercase sentence only in a set.
         """
 
-        if check_line == None:
+        if check_line is None:
             return "Empty words"
 
         regex = re.compile(r"\w+[aA-zZ]")
@@ -65,11 +71,7 @@ class WordApp:
 
 
 # As an API service - easy testing
-from fastapi import FastAPI
-from pydantic import BaseModel
 
-from dataclasses import dataclass
-from dataclasses_json import dataclass_json
 
 
 @dataclass_json

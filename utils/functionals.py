@@ -1,5 +1,4 @@
 import collections
-import concurrent.futures
 from pprint import pprint
 import time
 import multiprocessing

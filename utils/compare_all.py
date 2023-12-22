@@ -13,7 +13,6 @@ import findspark
 os.system("pip3 install -r requirements.txt --user")
 findspark.init()
 
-import pyspark
 from pyspark import SparkContext, SparkConf, SparkFiles
 
 run_date = (datetime.now() - timedelta(days=1)).strftime("%Y%m%d")

@@ -1,12 +1,12 @@
 requests~=2.31.0
-pyspark~=3.2.2
-findspark~=1.4.2
-pandas~=1.2.4
-numpy~=1.22
-lxml~=4.9.1
-fastapi~=0.65.2
-dataclasses_json
-pydantic~=1.8.2
-pytest~=7.4.0
-starlette~=0.25.0
-flask
+pyspark~=3.5.0
+findspark~=2.0.1
+pandas~=2.1.4
+# numpy~=1.22
+lxml~=4.9.4
+fastapi~=0.105.0
+dataclasses_json==0.6.3
+# pydantic~=2.5.3
+pytest~=7.4.3
+# starlette~=0.25.0
+flask==3.0.0
