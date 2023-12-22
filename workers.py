@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from http import HTTPStatus
+
 """Simple API in Flask to retrieve users with profession"""
 
 app = Flask(__name__)
@@ -32,7 +33,11 @@ def get_users_list():
 
     if name:
         users = next(
-            (user for user in users_list if str(user["name"]).lower() == name.lower()),
+            (
+                user
+                for user in users_list
+                if str(user["name"]).lower() == name.lower()
+            ),
             None,
         )
 

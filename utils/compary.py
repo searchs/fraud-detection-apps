@@ -2,14 +2,15 @@
 
 # Get necessary file information using os.stat()
 
-import os, sys
+import os
+import sys
 from os import linesep
 import csv
-import logging
+from loguru import logger
 
 
-logger = logging.getLogger(__name__)
-"""Usage: 
+# logger = logging.getLogger(__name__)
+"""Usage:
 compary.py file_1 file_2
 """
 logger.info(f"Running a comparison between {sys.argv[1]} amd {sys.argv[2]}")
@@ -47,7 +48,12 @@ def manifest():
     with open("manifest.csv", "w") as csvfile:
         csv_writer = csv.DictWriter(
             csvfile,
-            fieldnames=["file_name", "total_rows", "file_size_bytes", "file_size_more"],
+            fieldnames=[
+                "file_name",
+                "total_rows",
+                "file_size_bytes",
+                "file_size_more",
+            ],
         )
         csv_writer.writeheader()
         csv_writer.writerow(file_details)
@@ -68,7 +74,6 @@ def compare(file_to_compare, search_string):
             bucket = sf.read()
             res = bucket.find(search_string)
             if res == -1:
-
                 with open("missing.txt", "a") as mis:
                     mis.writelines(search_string)
 

@@ -49,7 +49,12 @@ def add_restaurant():
     cost = input("Enter Restaurant cost (out of 5): ")
     fave = input("Enter rating (out of 5): ")
     dist = input("Enter distance (minutes' walk): ")
-    restaurants[name] = {"type": cuisine, "cost": cost, "fave": fave, "dist": dist}
+    restaurants[name] = {
+        "type": cuisine,
+        "cost": cost,
+        "fave": fave,
+        "dist": dist,
+    }
 
 
 def save_changes():

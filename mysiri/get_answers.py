@@ -21,8 +21,8 @@ class Fetcher(object):
                 EC.presence_of_element_located((By.CLASS_NAME, "gsfi"))
             )
             print(ip, " found.   Continue processing...")
-        except:
-            print("Failed to get page.")
+        except Exception as e:
+            print(f"Failed to get page. {e}")
 
         soup = BeautifulSoup(self.driver.page_source, "html.parser")
         answer = soup.find_all(class_="_sPg")

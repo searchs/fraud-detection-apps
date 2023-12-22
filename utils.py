@@ -2,6 +2,12 @@
 
 
 import csv
+import os
+
+from zipfile import ZipFile
+import re
+import urllib.parse
+import urllib.request
 
 
 def merge_csv(csv_list, output_path):
@@ -25,10 +31,6 @@ def merge_csv(csv_list, output_path):
 
 # Zip Archive
 
-import os
-
-from zipfile import ZipFile
-
 
 def zip_all(search_dir, extension_list, output_path):
     with ZipFile(output_path, "w") as output_zip:
@@ -38,18 +40,15 @@ def zip_all(search_dir, extension_list, output_path):
                 name, ext = os.path.splitext(file)
                 if ext.lower() in extension_list:
                     output_zip.write(
-                        os.path.join(root, file), arcname=os.path.join(rel_path, file)
+                        os.path.join(root, file),
+                        arcname=os.path.join(rel_path, file),
                     )
 
 
 # Download Sequential files
-import os
-import re
-import urllib.parse
-import urllib.request
 
 
-def download_files(first_utl, output_dir):
+def download_files(first_url, output_dir):
     if not os.path.isdir(output_dir):
         os.mkdir(output_dir)
 
@@ -59,7 +58,9 @@ def download_files(first_utl, output_dir):
     while error_count < 5:
         next_index = str(int(first_index) + index_count)
         if first_index[0] == "0":  # zero padded
-            next_index = "0" * (len(first_index) - len(next_index)) + next_index
+            next_index = (
+                "0" * (len(first_index) - len(next_index)) + next_index
+            )
         next_url = urllib.parse.urljoin(
             url_head, re.sub(first_index, next_index, url_tail)
         )

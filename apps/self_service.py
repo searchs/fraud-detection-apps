@@ -23,7 +23,9 @@ def index():
     if UPLOAD_QUEUE:
         clean_uploads()
     return render_template(
-        "index.html", env=app.config["ohprice_environment"], title="Raw File Upload"
+        "index.html",
+        env=app.config["ohprice_environment"],
+        title="Raw File Upload",
     )
 
 
@@ -52,7 +54,9 @@ def upload():
         flash("Empty params!")
         message = "No file uploaded or no date supplied.  Try again."
         return render_template(
-            "index.html", env=app.config["ohprice_environment"], message=message
+            "index.html",
+            env=app.config["ohprice_environment"],
+            message=message,
         )
 
     return render_template(

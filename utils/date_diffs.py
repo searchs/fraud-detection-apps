@@ -34,13 +34,13 @@ def days_between_dates(year1, month1, day1, year2, month2, day2):
             days_diff = day2 - day1
             return days_diff
         else:
-
             diff_days = (30 - day1) + day2
             diff_months = month2 - month1
             days_diff = diff_days + 30 * (diff_months - 1)
             return days_diff
     elif year1 < year2:
         years_diff = year2 - year1
+        print(years_diff)
         months_diff = (12 - month1) + month2
         diff_days = (30 - day1) + day2
         days_diff = diff_days + 30 * (months_diff - 1)
@@ -54,7 +54,7 @@ def test():
         ((2012, 9, 1, 2012, 9, 4), 3),
     ]
 
-    for (args, answer) in test_cases:
+    for args, answer in test_cases:
         result = days_between_dates(*args)
         if result != answer:
             print("Test with data:", args, "failed")

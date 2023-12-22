@@ -13,7 +13,8 @@ AWS_SECRET_ACCESS_KEY = os.getenv("aws_secret_access_key")
 
 def get_boto_session() -> session:
     _session = boto3.Session(
-        aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
     )
     return _session
 

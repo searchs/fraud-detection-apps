@@ -1,6 +1,4 @@
 import re
-from logging import Logger
-from loguru import logger
 from fastapi import FastAPI
 from pydantic import BaseModel
 
@@ -48,13 +46,16 @@ class WordApp:
             return "No word"
 
         longest_value = max(list(map(lambda x: len(x), self.sentence)))
-        matching_words = set(filter(lambda f: len(f) == longest_value, self.sentence))
+        matching_words = set(
+            filter(lambda f: len(f) == longest_value, self.sentence)
+        )
 
         return (matching_words, longest_value)
 
     def get_shortest_word(self):
         """Get the shortest word(s) and the length of such word(s).
-        :returns a list of shortest words and the length of the shortest word"""
+        :returns a list of shortest words and the length of the shortest word
+        """
 
         if self.sentence is None:
             return "No word"
@@ -64,14 +65,16 @@ class WordApp:
 
         shortest_value = min(set(map(lambda x: len(x.strip()), self.sentence)))
         matching_words = set(
-            filter(lambda f: len(f) > 0 and len(f) == shortest_value, self.sentence)
+            filter(
+                lambda f: len(f) > 0 and len(f) == shortest_value,
+                self.sentence,
+            )
         )
 
         return (matching_words, shortest_value)
 
 
 # As an API service - easy testing
-
 
 
 @dataclass_json
@@ -89,7 +92,7 @@ word_app.sentence = None
 
 @app.get("/")
 def root():
-    """Root of api.  Checkout http://localhost:8000/docs to test it out. """
+    """Root of api.  Checkout http://localhost:8000/docs to test it out."""
     return {
         "app": "WordApp",
         "version": "0.0.1",
@@ -115,4 +118,8 @@ def get_words_by_length(check_type: str, sentence: str = None):
     if "No Type specified" in results:
         return {"check_type": "Invalid check_type", "words": "No word"}
 
-    return {"check_type": check_type, "words": results[0], "word_length": results[1]}
+    return {
+        "check_type": check_type,
+        "words": results[0],
+        "word_length": results[1],
+    }
