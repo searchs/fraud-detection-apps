@@ -4,8 +4,7 @@ from pydantic import BaseModel
 
 from dataclasses import dataclass
 from dataclasses_json import dataclass_json
-
-# logger = logging.getLogger(__name__)
+from loguru import logger
 
 
 class WordApp:
@@ -13,12 +12,13 @@ class WordApp:
     respective lengths.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
+        logger.info("Word apps starting")
         self.longest_words = {}
         self.shortest_words = {}
         self.sentence = None
 
-    def accept_sentence(self, check_line=None):
+    def accept_sentence(self, check_line=None) -> str:
         """Accepts a string of texts to be processed
 
         :params check_line:  String of words to be analyzed
@@ -33,7 +33,7 @@ class WordApp:
         self.sentence = set(map(lambda x: x.lower(), sentence))
         return self.sentence
 
-    def get_longest_word(self):
+    def get_longest_word(self) -> str | tuple(str, str):
         """Checks for the longest words in the sentence.
 
         Return: a tuple of list of the longest words and the length of each word
@@ -52,7 +52,7 @@ class WordApp:
 
         return (matching_words, longest_value)
 
-    def get_shortest_word(self):
+    def get_shortest_word(self) -> str | tuple(str, str):
         """Get the shortest word(s) and the length of such word(s).
         :returns a list of shortest words and the length of the shortest word
         """
@@ -102,7 +102,7 @@ def root():
 
 
 @app.get("/{check_type}")
-def get_words_by_length(check_type: str, sentence: str = None):
+def get_words_by_length(check_type: str, sentence: str = None) -> dict:
     word_app.accept_sentence(sentence)
     if check_type == "longest":
         results = word_app.get_longest_word()
