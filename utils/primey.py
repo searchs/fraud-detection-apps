@@ -1,3 +1,6 @@
+from loguru import logger
+
+
 def is_prime(x):
     if x < 2:
         return False
@@ -15,17 +18,19 @@ def is_prime(x):
             return False
 
 
-# Testing
-falsy = []
-truthy = []
+if __name__ == "__main__":
+    # logger.info(is_prime(9207))
 
-for p in range(0, 1001):
-    if is_prime(p):
-        truthy.append(p)
-    else:
-        falsy.append(p)
+    # Testing
+    falsy = []
+    truthy = []
 
+    for p in range(0, 1001):
+        if is_prime(p):
+            truthy.append(p)
+        else:
+            falsy.append(p)
 
-print("Count of Prime Numbers:", len(truthy))
-print("Count of Non-Prime Numbers:", len(falsy))
-print(truthy)
+    logger.info(f"Count of Prime Numbers: {len(truthy)}")
+    logger.info(f"Count of Non-Prime Numbers: {len(falsy)}")
+    # logger.info(truthy)
