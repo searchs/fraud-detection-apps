@@ -19,13 +19,8 @@ def is_prime(x):
 
 
 if __name__ == "__main__":
-    # is_prime(2)
-    # is_prime(3)
-    # is_prime(23)
-    # is_prime(37)
-    # is_prime(1023)
-    # is_prime(14527)
     # logger.info(is_prime(9207))
+
     # Testing
     falsy = []
     truthy = []
