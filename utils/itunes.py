@@ -1,12 +1,12 @@
 from lxml import html
 import requests
 import time
-import logging
+from loguru import logger
 
 #  Scraps itunes store for information.   Attempt to build a scrapping tool
 # Libraries: Beautiful Soup, scrapy
 
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
 
 
 class AppCrawler:
@@ -41,6 +41,8 @@ class AppCrawler:
         start_page = requests.get(link)
         tree = html.fromstring(start_page.text)
 
+        logger.info(f"{tree}")
+
         name = tree.xpath('//h1[@itemprop="name"]/text()')[0]
         developer = tree.xpath('//div[@class="left"]/h2/text()')[0]
         price = tree.xpath('//div[@itemprop="price"]/text()')[0]
@@ -54,13 +56,13 @@ class AppCrawler:
 
 
 class App:
-    def __init__(self, name, developer, price, links):
+    def __init__(self, name, developer, price, links) -> None:
         self.name = name
         self.developer = developer
         self.price = price
         self.links = links
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (
             "Name: "
             + self.name.encode("UTF-8")
@@ -72,10 +74,12 @@ class App:
         )
 
 
-crawler = AppCrawler(
-    "https://itunes.apple.com/us/app/novation-launchpad/id584362474?mt=8", 1
-)
-crawler.crawl()
+if __name__ == "__main__":
+    crawler = AppCrawler(
+        "https://itunes.apple.com/us/app/novation-launchpad/id584362474?mt=8",
+        1,
+    )
+    crawler.crawl()
 
-for app in crawler.apps:
-    print(app)
+    for app in crawler.apps:
+        logger.info(f"{app}")
