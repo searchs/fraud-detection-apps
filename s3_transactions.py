@@ -19,7 +19,7 @@ def get_boto_session() -> session:
     return _session
 
 
-def read_s3_buckets(session: boto3.Session, bucket_name: str, logger: logger):
+def read_s3_buckets(session: boto3.Session, bucket_name: str, logger: logger) -> None:
     s3 = boto3.resource(
         "s3",
         aws_access_key_id=AWS_ACCESS_KEY_ID,
