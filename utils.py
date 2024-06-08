@@ -8,6 +8,7 @@ from zipfile import ZipFile
 import re
 import urllib.parse
 import urllib.request
+from typing import Callable
 
 
 def merge_csv(csv_list, output_path):
@@ -78,3 +79,143 @@ def download_files(first_url, output_dir):
 def palindrome(input_str):
     forwards = "".join(re.findall(r"[a-z]+", input_str.lower()))
     return forwards[:] == forwards[::-1]
+
+
+from fastapi import FastAPI
+app = FastAPI()
+
+@app.get("/items/")
+async def read_items(session_id: Annotated[str | None, Cookie()] = None):
+    return {"session_id": session_id}
+
+
+from typing import Callable
+
+def process_action(func: Callable) -> None:
+    print(f"NAME: {func.__name__} function.\n")
+    
+
+
+
+def is_valid_age(age: int) -> bool:
+    if age >= 21:
+        return True
+    else:
+        return False
+    
+# optimized version
+
+def is_valid_age_op(age: int) -> bool:
+    return age >= 21
+
+
+
+def cal_sum(n) -> int:
+    result = 0
+    for i in range(n):
+        result += i
+    return result
+
+
+def cal_sum_ops(n) -> int:
+    return (n * (n-1))//2
+    # return sum([range(n)])
+
+
+import time
+def get_time(func: Callable, *args: int) -> None:
+    start: float = time.perf_counter()
+    func(*args)
+    end: float = time.perf_counter()
+    print(f'"{func.__name__}()" took: {end - start:.5f} seconds')
+
+
+
+
+from fastapi import FastAPI
+app = FastAPI()
+
+@app.get("/items/")
+async def read_items(session_id: Annotated[str | None, Cookie()] = None):
+    return {"session_id": session_id}
+
+
+from typing import Callable
+
+def process_action(func: Callable) -> None:
+    print(f"NAME: {func.__name__} function.\n")
+    
+
+
+
+def is_valid_age(age: int) -> bool:
+    if age >= 21:
+        return True
+    else:
+        return False
+    
+# optimized version
+
+def is_valid_age_op(age: int) -> bool:
+    return age >= 21
+
+
+
+def cal_sum(n) -> int:
+    result = 0
+    for i in range(n):
+        result += i
+    return result
+
+
+def cal_sum_ops(n) -> int:
+    return (n * (n-1))//2
+    # return sum([range(n)])
+
+
+import time
+def get_time(func: Callable, *args: int) -> None:
+    start: float = time.perf_counter()
+    func(*args)
+    end: float = time.perf_counter()
+    print(f'"{func.__name__}()" took: {end - start:.5f} seconds')
+
+
+
+def process_action(func: Callable) -> None:
+    print(f"NAME: {func.__name__} function.\n")
+
+
+
+def is_valid_age(age: int) -> bool:
+    if age >= 21:
+        return True
+    else:
+        return False
+    
+# optimized version
+
+def is_valid_age_op(age: int) -> bool:
+    return age >= 21
+
+
+
+def cal_sum(n) -> int:
+    result = 0
+    for i in range(n):
+        result += i
+    return result
+
+
+def cal_sum_ops(n) -> int:
+    return (n * (n-1))//2
+    # return sum([range(n)])
+
+
+import time
+def get_time(func: Callable, *args: int) -> None:
+    start: float = time.perf_counter()
+    func(*args)
+    end: float = time.perf_counter()
+    print(f'"{func.__name__}()" took: {end - start:.5f} seconds')
+
