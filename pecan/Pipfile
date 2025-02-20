@@ -4,9 +4,16 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pytest = "*"
 
 [packages]
 Flask = "==2.2.5"
+jinja2 = "*"
+pluggy = "*"
+py = "*"
+six = "*"
+markupsafe = "*"
+werkzeug = "*"
 
 [requires]
 python_version = "3.7"
