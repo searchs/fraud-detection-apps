@@ -89,7 +89,6 @@ async def read_items(session_id: Annotated[str | None, Cookie()] = None):
     return {"session_id": session_id}
 
 
-from typing import Callable
 
 def process_action(func: Callable) -> None:
     print(f"NAME: {func.__name__} function.\n")
@@ -173,7 +172,6 @@ def cal_sum_ops(n) -> int:
     # return sum([range(n)])
 
 
-import time
 def get_time(func: Callable, *args: int) -> None:
     start: float = time.perf_counter()
     func(*args)
@@ -212,7 +210,6 @@ def cal_sum_ops(n) -> int:
     # return sum([range(n)])
 
 
-import time
 def get_time(func: Callable, *args: int) -> None:
     start: float = time.perf_counter()
     func(*args)
