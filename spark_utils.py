@@ -1,3 +1,9 @@
+from pyspark.sql import DataFrame
+from pyspark.rdd import RDD
+
+from loguru import logger as Logger
+
+
 def get_partition_info(df: DataFrame, logger: Logger) -> None:
     """
     Get partition info to easily determine optimal partition count for  repartition/coalesce
@@ -6,6 +12,9 @@ def get_partition_info(df: DataFrame, logger: Logger) -> None:
     :return: None.  Prints the results to the console
     """
     import statistics
+
+    def process_marker(logger: Logger, msg: str) -> None:
+        logger.info("\n" + "==" * 15 + msg + "==" * 15 + "\n")
 
     def get_partition_len(iterator):
         yield sum(1 for _ in iterator)

@@ -1,6 +1,0 @@
-pytest
-pyspark
-findspark
-pandas
-numpy
-great_expectations

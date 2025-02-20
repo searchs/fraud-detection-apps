@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+pyspark = "*"
+findspark = "*"
+pandas = "*"
+lxml = "*"
+fastapi = "*"
+dataclasses-json = "0.6.3"
+flask = "*"
+
+[dev-packages]
+pytest = "*"
+great_expectations = "*"
+ruff = "*"
+loguru = "*"
+
+[requires]
+python_version = "3.12"
